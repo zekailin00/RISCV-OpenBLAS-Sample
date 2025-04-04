@@ -1,0 +1,52 @@
+{
+    "configurations": [
+        {
+            "name": "msckf x86",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/rvvTest",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                { "name": "OPENBLAS_NUM_THREADS", "value": "3" },
+                { "name": "GOTO_DEBUG", "value": "1" }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "rvvTest riscv",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-riscv/rvvTest",
+            "miDebuggerServerAddress": "localhost:6969",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceRoot}",
+            "environment": [
+                { "name": "OPENBLAS_NUM_THREADS", "value": "3" },
+                { "name": "GOTO_DEBUG", "value": "1" }
+            ],
+            // "preLaunchTask": "run-riscv",
+            "externalConsole": true,
+            "launchCompleteCommand": "exec-run",
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/home/zekailin00/Desktop/chipyard-t/.conda-env/riscv-tools/bin/riscv64-unknown-linux-gnu-gdb"
+            }
+        }
+    ]
+}

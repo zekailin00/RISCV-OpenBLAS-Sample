@@ -1,0 +1,23 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run-riscv",
+            "type": "shell",
+            "command": "/home/zekailin00/Desktop/riscv-gnu-toolchain/drops/linux/bin/qemu-riscv64 -L /home/zekailin00/Desktop/chipyard-t/.conda-env/riscv-tools/sysroot -g 6969 ${workspaceFolder}/build-riscv/rvvTest",
+            "dependsOn": "build-riscv",
+        },
+        {
+            "label": "build-riscv",
+            "type": "shell",
+            "command": "cmake --build build-riscv/. --target rvvTest -- -j$(nproc)",
+        },
+        {
+            "label": "configure-riscv",
+            "type": "shell",
+            "command": "cmake -S . -B build-riscv -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain.cmake -DCMAKE_BUILD_TYPE=Debug",
+        }
+    ]
+}
