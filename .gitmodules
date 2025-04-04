@@ -1,3 +1,6 @@
 [submodule "eigen"]
 	path = eigen
 	url = https://gitlab.com/libeigen/eigen.git
+[submodule "OpenBLAS"]
+	path = OpenBLAS
+	url = git@github.com:zekailin00/OpenBLAS.git
