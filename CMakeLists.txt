@@ -2,6 +2,9 @@
 project(rvv-test)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE DEBUG)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/drops-rvv)
 
 if (CMAKE_CROSSCOMPILING)
     find_package(OpenCV REQUIRED PATHS "/home/zekailin00/Desktop/opencv/build-debug-rvv/drops-debug-rvv")
@@ -17,28 +20,44 @@ if (CMAKE_CROSSCOMPILING)
     set(BUILD_TESTING OFF)
     set(BUILD_BENCHMARKS OFF)
     set(TARGET "RISCV64_GENERIC")
+    # add_definitions(-DGEMMINI_BACKEND)
 endif()
 
+# add_definitions(-DTIMING_DEBUG -DSMP_DEBUG -DDEBUG_PRINT_KERNEL)
 add_definitions(-DEIGEN_USE_BLAS=1)
+# find_package(OpenBLAS REQUIRED PATHS "/home/zekailin00/Desktop/rvv-test/drops-rvv/lib/cmake")
 add_subdirectory(${CMAKE_SOURCE_DIR}/OpenBLAS)
 add_subdirectory(${CMAKE_SOURCE_DIR}/eigen)
 add_subdirectory(${CMAKE_SOURCE_DIR}/boost)
+
+set(BIN_NAME matTest_${TARGET})
 
 add_executable(rvvTest main.cpp)
 
 target_compile_definitions(rvvTest PRIVATE EIGEN_USE_BLAS)
 target_link_libraries(rvvTest PUBLIC
-    openblas_static
+openblas_static 
+# OpenBLAS::OpenBLAS
     Eigen3::Eigen
-
-    # Boost::date_time
-    # Boost::filesystem
-    # Boost::system
-    # Boost::thread
-    # Boost::math
-
-    # ${OpenCV_LIBS}
 )
+target_include_directories(rvvTest PUBLIC
+    /home/zekailin00/Desktop/rvv-test/OpenBLAS/gemmini
+)
+
+add_executable(gemminiTest gemmini-test.cpp)
+target_compile_definitions(gemminiTest PRIVATE EIGEN_USE_BLAS)
+target_link_libraries(gemminiTest PUBLIC
+    openblas_static 
+    Eigen3::Eigen
+)
+
+target_include_directories(gemminiTest PUBLIC
+    /home/zekailin00/Desktop/rvv-test/OpenBLAS/gemmini
+)
+
+# target_include_directories(rvvTest PUBLIC 
+#     /home/zekailin00/Desktop/rvv-test/drops-rvv/include
+# )
 
 set(ASM_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/asm.txt")
 

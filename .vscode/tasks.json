@@ -6,7 +6,7 @@
         {
             "label": "run-riscv",
             "type": "shell",
-            "command": "/home/zekailin00/Desktop/riscv-gnu-toolchain/drops/linux/bin/qemu-riscv64 -L /home/zekailin00/Desktop/chipyard-t/.conda-env/riscv-tools/sysroot -g 6969 ${workspaceFolder}/build-riscv/rvvTest",
+            "command": "OPENBLAS_VERBOSE=0 GOTO_DEBUG=0 OPENBLAS_CORETYPE=riscv64_zvl128b /home/zekailin00/Desktop/riscv-gnu-toolchain/drops/linux/bin/qemu-riscv64 -cpu rv64,v=true,vlen=256,vext_spec=v1.0 -L /home/zekailin00/Desktop/chipyard-t/.conda-env/riscv-tools/sysroot -g 6900 ${workspaceFolder}/build-riscv/rvvTest 0 64 1 1 8 10",
             "dependsOn": "build-riscv",
         },
         {
@@ -17,7 +17,7 @@
         {
             "label": "configure-riscv",
             "type": "shell",
-            "command": "cmake -S . -B build-riscv -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain.cmake -DCMAKE_BUILD_TYPE=Debug",
+            "command": "cmake -S . -B build-riscv -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain.cmake -DCMAKE_BUILD_TYPE=Debug",
         }
     ]
 }
