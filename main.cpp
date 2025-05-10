@@ -40,6 +40,18 @@ inline void gemv_t(const Eigen::MatrixXf& A,
     y = alpha * A.transpose() * x + beta * y;
 }
 
+inline void gemv_n(const Eigen::MatrixXd& A, 
+    const Eigen::VectorXd& x, Eigen::VectorXd& y, double alpha, double beta)
+{
+    y = alpha * A * x + beta * y;
+}
+
+inline void gemv_t(const Eigen::MatrixXd& A,
+    const Eigen::VectorXd& x, Eigen::VectorXd& y, double alpha, double beta)
+{
+    y = alpha * A.transpose() * x + beta * y;
+}
+
 int gemm_example(int matSize = 50) {
     // Define 20x20 dynamically sized matrices
     Eigen::MatrixXd A(matSize, matSize);
