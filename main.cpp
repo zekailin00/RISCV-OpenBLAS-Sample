@@ -254,6 +254,11 @@ int gemv_benchmark(int argc, char* argv[])
     int seed        = std::stoi(argv[5]);
     int iteration   = std::stoi(argv[6]);
 
+    printf("length    : %d\n", length );
+    printf("alpha     : %d\n", alpha );
+    printf("beta      : %d\n", beta      );
+    printf("seed      : %d\n", seed      );
+    printf("iteration : %d\n", iteration );
 
     Eigen::MatrixXf A(length, length);
     Eigen::VectorXf X(length);
